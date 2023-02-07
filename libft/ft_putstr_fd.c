@@ -6,11 +6,11 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 17:01:16 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/06 15:01:35 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:49:36 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:13:56 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/06 14:52:01 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:49:36 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
 static int	is_char(char c, char const *set)
 {

@@ -6,11 +6,11 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 13:29:14 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/05 17:32:06 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:49:36 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
 char	*ft_strdup(const char *s)
 {

@@ -6,11 +6,11 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:52:50 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/05 14:00:27 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:49:36 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
 int	ft_isalpha(int c)
 {
