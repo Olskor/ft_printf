@@ -6,21 +6,21 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/07 17:50:55 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:10:58 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include "ft_printf.h"
 
-void	ft_putunbr_fd(unsigned int n, int fd)
+static void	ft_putunbr_fd(unsigned int n, int fd)
 {
 	if (n >= 10)
 		ft_putnbr_fd(n / 10, fd);
 	ft_putchar_fd('0' + (n % 10), fd);
 }
 
-void	arg_print2(va_list ptr, char c)
+static void	arg_print2(va_list ptr, char c)
 {
 	long	tempi;
 
@@ -31,7 +31,7 @@ void	arg_print2(va_list ptr, char c)
 	}
 }
 
-void	arg_print(va_list ptr, char c)
+static void	arg_print(va_list ptr, char c)
 {
 	char	*temps;
 	long	tempi;
