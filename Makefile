@@ -27,7 +27,7 @@ all: 			$(NAME)
 $(NAME):		$(OBJS)
 					ar rcs $(NAME) $(OBJS)
 
-bonus:			$(OBJS)
+bonus:			$(BONUS_OBJS)
 					ar rcs $(NAME) $(BONUS_OBJS)
 
 clean:

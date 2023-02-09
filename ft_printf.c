@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/08 16:36:40 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:42:21 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,28 @@ static void	ft_puthex_fd(unsigned int n, int fd, int maj)
 		ft_putchar_fd(HEX[(n % 16)], fd);
 }
 
-static void	arg_print2(va_list ptr, char c)
+static int	arg_print2(va_list ptr, char c)
 {
 	long	tempi;
 
 	if (c == 'u')
 	{
 		tempi = va_arg(ptr, long);
-		ft_putunbr_fd(tempi, 1);
+		return (ft_putunbr_fd(tempi, 1));
 	}
 	if (c == 'x')
 	{
 		tempi = va_arg(ptr, long);
-		ft_puthex_fd(tempi, 1, 0);
+		return (ft_puthex_fd(tempi, 1, 0));
 	}
 	if (c == 'X')
 	{
 		tempi = va_arg(ptr, long);
-		ft_puthex_fd(tempi, 1, 1);
+		return (ft_puthex_fd(tempi, 1, 1));
 	}
 }
 
-static void	arg_print(va_list ptr, char c)
+static int	arg_print(va_list ptr, char c)
 {
 	char	*temps;
 	long	tempi;
@@ -59,40 +59,43 @@ static void	arg_print(va_list ptr, char c)
 	if (c == 's')
 	{
 		temps = va_arg(ptr, char *);
-		ft_putstr_fd(temps, 1);
+		return (ft_putstr_fd(temps, 1));
 	}
 	if (c == 'c')
 	{
 		tempc = va_arg(ptr, int);
-		ft_putchar_fd(tempc, 1);
+		return (ft_putchar_fd(tempc, 1));
 	}
 	if (c == 'i' || c == 'd')
 	{
 		tempi = va_arg(ptr, int);
-		ft_putnbr_fd(tempi, 1);
+		return (ft_putnbr_fd(tempi, 1));
 	}
 	if (c == '%')
-		ft_putchar_fd('%', 1);
-	arg_print2(ptr, c);
+		return (ft_putchar_fd('%', 1));
+	return (arg_print2(ptr, c));
 }
 
 int	ft_printf(const char *s, ...)
 {
 	int		i;
+	int		n;
 	va_list	ptr;
 
 	va_start(ptr, s);
 	i = 0;
+	n = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			arg_print(ptr, s[i + 1]);
+			n += arg_print(ptr, s[i + 1]);
 			i++;
 		}
 		else
 			write(1, s + i, 1);
 		i++;
+		n++;
 	}
-	return (1);
+	return (i);
 }
