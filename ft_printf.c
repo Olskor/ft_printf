@@ -6,18 +6,27 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/08 14:10:58 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/08 16:36:40 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "ft_printf.h"
 
 static void	ft_putunbr_fd(unsigned int n, int fd)
 {
 	if (n >= 10)
-		ft_putnbr_fd(n / 10, fd);
+		ft_putunbr_fd(n / 10, fd);
 	ft_putchar_fd('0' + (n % 10), fd);
+}
+
+static void	ft_puthex_fd(unsigned int n, int fd, int maj)
+{
+	if (n >= 16)
+		ft_puthex_fd(n / 16, fd, maj);
+	if (maj)
+		ft_putchar_fd(ft_toupper(HEX[(n % 16)]), fd);
+	else
+		ft_putchar_fd(HEX[(n % 16)], fd);
 }
 
 static void	arg_print2(va_list ptr, char c)
@@ -28,6 +37,16 @@ static void	arg_print2(va_list ptr, char c)
 	{
 		tempi = va_arg(ptr, long);
 		ft_putunbr_fd(tempi, 1);
+	}
+	if (c == 'x')
+	{
+		tempi = va_arg(ptr, long);
+		ft_puthex_fd(tempi, 1, 0);
+	}
+	if (c == 'X')
+	{
+		tempi = va_arg(ptr, long);
+		ft_puthex_fd(tempi, 1, 1);
 	}
 }
 
