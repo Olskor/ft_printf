@@ -6,13 +6,13 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:38:52 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/10 16:25:49 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:21:05 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	printnbrbase(unsigned int nbr, int i, char *base, int basesize)
+static void	printnbrbase(unsigned long nbr, int i, char *base, int basesize)
 {
 	if (i > 1)
 		printnbrbase(nbr / basesize, i - 1, base, basesize);
@@ -43,12 +43,12 @@ static int	testbase(char *base)
 	return (1);
 }
 
-static int	nbrlength(unsigned int i, int n)
+static int	nbrlength(unsigned long i, int n)
 {
 	int	w;
 
 	w = 0;
-	while (i >= (unsigned int) n)
+	while (i >= (unsigned long) n)
 	{
 		i = i / n;
 		w++;
@@ -56,7 +56,7 @@ static int	nbrlength(unsigned int i, int n)
 	return (w + 1);
 }
 
-int	ft_putnbr_base(int nbr, char *base)
+int	ft_putnbr_base(unsigned long nbr, char *base, int size)
 {
 	unsigned int	i;
 	int				n;
@@ -64,14 +64,19 @@ int	ft_putnbr_base(int nbr, char *base)
 	if (!testbase(base))
 		return (0);
 	i = (unsigned int) nbr;
-	if (nbr < 0)
-	{
-		ft_putchar_fd('-', 1);
-		i = (unsigned int) nbr * -1;
-	}
 	n = 0;
 	while (base[n])
 		n++;
-	printnbrbase(i, nbrlength(i, n), base, n);
-	return (nbrlength(i, n));
+	if (size == 1)
+	{
+		printnbrbase(i, nbrlength(i, n), base, n);
+		return (nbrlength(i, n));
+	}
+	if (size == 2)
+	{
+		ft_putstr_fd("0x", 1);
+		printnbrbase(nbr, nbrlength(nbr, n), base, n);
+		return (nbrlength(nbr, n) + 2);
+	}
+	return (0);
 }

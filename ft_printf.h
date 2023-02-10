@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:41:30 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/10 16:43:57 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:19:49 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_bzero(void *s, int n);
 int		ft_atoi(const char *nptr);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
-int		ft_putnbr_base(int nbr, char *base);
+int		ft_putnbr_base(unsigned long nbr, char *base, int size);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -62,6 +62,8 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_uitoa(unsigned int nbr);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+int		ft_putunbr_fd(unsigned int n, int fd);
+int		ft_putnnbr_fd(int n, int fd);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

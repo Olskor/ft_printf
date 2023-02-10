@@ -6,34 +6,29 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/10 16:44:20 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:26:27 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putunbr_fd(unsigned int n, int fd)
+static int	arg_print3(va_list ptr, char c)
 {
-	char	*str;
-	int		i;
+	long	tempi;
 
-	str = ft_uitoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
-}
-
-static int	ft_putnnbr_fd(int n, int fd)
-{
-	char	*str;
-	int		i;
-
-	str = ft_itoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
+	if (c == 'p')
+	{
+		tempi = va_arg(ptr, long);
+		if (!tempi)
+			return (ft_putstr_fd("(nil)", 1));
+		return (ft_putnbr_base(tempi, "0123456789abcdef", 2));
+	}
+	if (c == '%')
+	{
+		ft_putchar_fd('%', 1);
+		return (1);
+	}
+	return (0);
 }
 
 static int	arg_print2(va_list ptr, char c)
@@ -48,19 +43,14 @@ static int	arg_print2(va_list ptr, char c)
 	if (c == 'x')
 	{
 		tempi = va_arg(ptr, long);
-		return (ft_putnbr_base(tempi, "0123456789abcdef"));
+		return (ft_putnbr_base(tempi, "0123456789abcdef", 1));
 	}
 	if (c == 'X')
 	{
 		tempi = va_arg(ptr, long);
-		return (ft_putnbr_base(tempi, "0123456789ABCDEF"));
+		return (ft_putnbr_base(tempi, "0123456789ABCDEF", 1));
 	}
-	if (c == '%')
-	{
-		ft_putchar_fd('%', 1);
-		return (1);
-	}
-	return (0);
+	return (arg_print3(ptr, c));
 }
 
 static int	arg_print(va_list ptr, char c)
