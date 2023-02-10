@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:29:54 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/09 17:36:14 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:37:22 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 
 int	main(void)
 {
-	ft_putnbr_fd(ft_printf("%c", '0'), 1);
+	int	i;
+	i = ft_printf(" %u ", -1);
+	ft_putstr_fd(", ", 1);
+	ft_putnbr_fd(i, 1);
 	ft_putchar_fd('\n', 1);
-	ft_putnbr_fd(printf("%c", '0'), 1);
+	i = printf(" %u ", -1);
+	ft_putstr_fd(", ", 1);
+	ft_putnbr_fd(i, 1);
+	ft_putchar_fd('\n', 1);
 }

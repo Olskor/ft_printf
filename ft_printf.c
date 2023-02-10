@@ -6,27 +6,34 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/09 17:42:21 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:44:20 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_putunbr_fd(unsigned int n, int fd)
+static int	ft_putunbr_fd(unsigned int n, int fd)
 {
-	if (n >= 10)
-		ft_putunbr_fd(n / 10, fd);
-	ft_putchar_fd('0' + (n % 10), fd);
+	char	*str;
+	int		i;
+
+	str = ft_uitoa(n);
+	ft_putstr_fd(str, fd);
+	i = ft_strlen(str);
+	free(str);
+	return (i);
 }
 
-static void	ft_puthex_fd(unsigned int n, int fd, int maj)
+static int	ft_putnnbr_fd(int n, int fd)
 {
-	if (n >= 16)
-		ft_puthex_fd(n / 16, fd, maj);
-	if (maj)
-		ft_putchar_fd(ft_toupper(HEX[(n % 16)]), fd);
-	else
-		ft_putchar_fd(HEX[(n % 16)], fd);
+	char	*str;
+	int		i;
+
+	str = ft_itoa(n);
+	ft_putstr_fd(str, fd);
+	i = ft_strlen(str);
+	free(str);
+	return (i);
 }
 
 static int	arg_print2(va_list ptr, char c)
@@ -41,13 +48,19 @@ static int	arg_print2(va_list ptr, char c)
 	if (c == 'x')
 	{
 		tempi = va_arg(ptr, long);
-		return (ft_puthex_fd(tempi, 1, 0));
+		return (ft_putnbr_base(tempi, "0123456789abcdef"));
 	}
 	if (c == 'X')
 	{
 		tempi = va_arg(ptr, long);
-		return (ft_puthex_fd(tempi, 1, 1));
+		return (ft_putnbr_base(tempi, "0123456789ABCDEF"));
 	}
+	if (c == '%')
+	{
+		ft_putchar_fd('%', 1);
+		return (1);
+	}
+	return (0);
 }
 
 static int	arg_print(va_list ptr, char c)
@@ -64,15 +77,14 @@ static int	arg_print(va_list ptr, char c)
 	if (c == 'c')
 	{
 		tempc = va_arg(ptr, int);
-		return (ft_putchar_fd(tempc, 1));
+		ft_putchar_fd(tempc, 1);
+		return (1);
 	}
 	if (c == 'i' || c == 'd')
 	{
 		tempi = va_arg(ptr, int);
-		return (ft_putnbr_fd(tempi, 1));
+		return (ft_putnnbr_fd(tempi, 1));
 	}
-	if (c == '%')
-		return (ft_putchar_fd('%', 1));
 	return (arg_print2(ptr, c));
 }
 
@@ -89,7 +101,7 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%')
 		{
-			n += arg_print(ptr, s[i + 1]);
+			n += arg_print(ptr, s[i + 1]) - 1;
 			i++;
 		}
 		else
@@ -97,5 +109,5 @@ int	ft_printf(const char *s, ...)
 		i++;
 		n++;
 	}
-	return (i);
+	return (n);
 }
