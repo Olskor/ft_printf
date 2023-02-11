@@ -1,5 +1,5 @@
 NAME		= libftprintf.a
-INCLUDE		= include
+INCLUDE		= ./
 LIBFT		= libft
 SRC_DIR		= src/
 OBJ_DIR		= obj/

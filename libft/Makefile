@@ -1,5 +1,5 @@
 NAME = 			libft.a
-INCLUDE =		../include
+INCLUDE =		../
 
 CFLAGS = 		-Wall -Werror -Wextra -I $(INCLUDE)
 
