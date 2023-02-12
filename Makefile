@@ -29,7 +29,7 @@ OBJF		=	.cache_exists
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			@make -C $(LIBFT)
+			@make -C $(LIBFT) --no-print-directory
 			@cp libft/libft.a .
 			@mv libft.a $(NAME)
 			@$(AR) $(NAME) $(OBJ)
@@ -44,7 +44,7 @@ $(OBJF):
 
 clean:
 			@$(RM) -rf $(OBJ_DIR)
-			@make clean -C $(LIBFT)
+			@make clean -C $(LIBFT) --no-print-directory
 			@echo "$(BLUE)ft_printf object files cleaned!$(DEF_COLOR)"
 
 fclean:		clean
