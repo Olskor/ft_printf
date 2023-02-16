@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:02:07 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 20:07:20 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:34:32 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	arg_print(va_list ptr, char c, int spacetype, int space)
 	if (c == 'p')
 	{
 		spacetype = ft_bitset(spacetype, 5);
-		return (ft_print_xnbr(va_arg(ptr, long), spacetype, space
+		spacetype = ft_bitset(spacetype, 6);
+		return (ft_print_pnbr(va_arg(ptr, long), spacetype, space
 				, "0123456789abcdef"));
 	}
 	if (c == '%')

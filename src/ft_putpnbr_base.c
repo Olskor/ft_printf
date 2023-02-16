@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_putpnbr_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:38:52 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 20:28:38 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:24:26 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	printnbrbase(unsigned long nbr, int i, char *base, int basesize)
+static void	printnbrbase(unsigned long int nbr, int i, char *base, int basesize)
 {
 	if (i > 1)
 		printnbrbase(nbr / basesize, i - 1, base, basesize);
@@ -44,7 +44,7 @@ static int	testbase(char *base)
 	return (1);
 }
 
-int	ft_nbrlength(unsigned long i, int n)
+int	ft_nbrplength(unsigned long int i, int n)
 {
 	int	w;
 
@@ -57,7 +57,7 @@ int	ft_nbrlength(unsigned long i, int n)
 	return (w + 1);
 }
 
-int	ft_putnbr_base(unsigned long nbr, char *base, int size)
+int	ft_putpnbr_base(unsigned long int nbr, char *base, int size)
 {
 	unsigned int	i;
 	int				n;
@@ -70,13 +70,14 @@ int	ft_putnbr_base(unsigned long nbr, char *base, int size)
 		n++;
 	if (size == 1)
 	{
-		printnbrbase(i, ft_nbrlength(i, n), base, n);
-		return (ft_nbrlength(i, n));
+		printnbrbase(i, ft_nbrplength(i, n), base, n);
+		return (ft_nbrplength(i, n));
 	}
 	if (size == 2)
 	{
-		printnbrbase(nbr, ft_nbrlength(nbr, n), base, n);
-		return (ft_nbrlength(nbr, n));
+		ft_putstr_fd("0x", 1);
+		printnbrbase(nbr, ft_nbrplength(nbr, n), base, n);
+		return (ft_nbrplength(nbr, n) + 2);
 	}
 	return (0);
 }

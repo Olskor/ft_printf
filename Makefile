@@ -18,7 +18,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC_FILES	=	ft_printf ft_putnbr_base ft_uitoa ft_argprint ft_bitmanipulation ft_print ft_putcheck
+SRC_FILES	=	ft_printf ft_putnbr_base ft_uitoa ft_argprint ft_bitmanipulation ft_print ft_putcheck ft_printp
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
