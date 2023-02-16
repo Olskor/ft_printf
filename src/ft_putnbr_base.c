@@ -6,11 +6,12 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:38:52 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/10 20:21:05 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:05:23 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 static void	printnbrbase(unsigned long nbr, int i, char *base, int basesize)
 {

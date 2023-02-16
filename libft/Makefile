@@ -1,7 +1,11 @@
-NAME = 			libft.a
-INCLUDE =		../
-
-CFLAGS = 		-Wall -Werror -Wextra -I $(INCLUDE)
+NAME		= libft.a
+INCLUDE		= ../includes
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra -I
+RM			= rm -f
+AR			= ar rcs
 
 DEF_COLOR = \033[0;39m
 GRAY = \033[0;90m
@@ -13,46 +17,57 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRCS =			ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
-				ft_strlcat.c ft_strncmp.c ft_substr.c ft_atoi.c ft_isalpha.c \
-				ft_itoa.c ft_memcpy.c  ft_putendl_fd.c ft_strchr.c  ft_strlcpy.c \
-				ft_strnstr.c ft_tolower.c ft_bzero.c   ft_isascii.c ft_memcpy.c \
-				ft_memmove.c ft_putnbr_fd.c  ft_strdup.c  ft_strlen.c  ft_strrchr.c \
-				ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c  \
-				ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c
+SRC_FILES	=	ft_isalnum ft_isprint ft_memcmp  ft_putchar_fd ft_split \
+				ft_strlcat ft_strncmp ft_substr ft_atoi ft_isalpha \
+				ft_itoa ft_memcpy  ft_putendl_fd ft_strchr  ft_strlcpy \
+				ft_strnstr ft_tolower ft_bzero   ft_isascii ft_memcpy \
+				ft_memmove ft_putnbr_fd  ft_strdup  ft_strlen  ft_strrchr \
+				ft_toupper ft_calloc  ft_isdigit ft_memchr  ft_memset  \
+				ft_putstr_fd  ft_strjoin ft_strmapi ft_strtrim ft_striteri
 
-CC = 			cc
+BONUS_FILES =	ft_lstadd_back_bonus ft_lstadd_front_bonus ft_lstclear_bonus \
+				ft_lstdelone_bonus ft_lstiter_bonus ft_lstlast_bonus \
+				ft_lstmap_bonus ft_lstnew_bonus ft_lstsize_bonus
 
-OBJS = 			$(SRCS:.c=.o)
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+BONUS 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(BONUS_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+BONUS_OBJ 	= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(BONUS_FILES)))
 
-BONUS =			ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
-				ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c \
-				ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
+OBJF		=	.cache_exists
 
-BONUS_OBJS = 	$(BONUS:.c=.o)
+all: 		$(NAME)
 
-.c.o:			
-				@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
-				@$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+$(NAME):	$(OBJ)
+			@$(AR) $(NAME) $(OBJ)
+			@echo "$(GREEN)libft compiled!$(DEF_COLOR)"
 
-all: 			$(NAME)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(NAME):		$(OBJS)
-					@ar rcs $(NAME) $(OBJS)
-					@echo "$(GREEN)libft compiled!$(DEF_COLOR)"
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
-bonus:			$(BONUS_OBJS)
-					@ar rcs $(NAME) $(BONUS_OBJS)
-					@echo "$(GREEN)libft bonus compiled!$(DEF_COLOR)"
+bonus:		$(BONUS_OBJ)
+			@$(AR) $(NAME) $(BONUS_OBJ)
+			@echo "$(GREEN)libft bonus compiled!$(DEF_COLOR)"
 
 clean:
-					@rm -f $(OBJS) $(BONUS_OBJS)
-					@echo "$(BLUE)libft object files cleaned!$(DEF_COLOR)"
+			@$(RM) -rf $(OBJ_DIR)
+			@echo "$(BLUE)libft object files cleaned!$(DEF_COLOR)"
 
-fclean: 		clean
-					@rm -f $(NAME)
-					@echo "$(GREEN)Cleaned and rebuilt everything for libft!$(DEF_COLOR)"
+fclean:		clean
+			@$(RM) -f $(NAME)
+			@echo "$(CYAN)libft executable files cleaned!$(DEF_COLOR)"
 
-re:				fclean all
+re:			fclean all
+			@echo "$(GREEN)Cleaned and rebuilt everything for libft!$(DEF_COLOR)"
 
-.PHONY:			all clean fclean re bonus
+norm:
+			@norminette $(SRC) $(INCLUDE) | grep -v Norme -B1 || true
+
+who:
+			@echo "$(RED)this program was completed by jauffret if the person being evaluated is not jauffret, he is a cheater.$(DEF_COLOR)"
+
+.PHONY:		all clean fclean re norm

@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr.c                                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 19:55:03 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 14:05:24 by jauffret         ###   ########.fr       */
+/*   Created: 2023/02/03 13:25:06 by jauffret          #+#    #+#             */
+/*   Updated: 2023/02/06 13:03:14 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_putunbr_fd(unsigned int n, int fd)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*str;
-	int		i;
+	void	*tab;
+	size_t	len;
 
-	str = ft_uitoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
-}
-
-int	ft_putnnbr_fd(int n, int fd)
-{
-	char	*str;
-	int		i;
-
-	str = ft_itoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
+	len = (size_t)(size * nmemb);
+	if (size == 0 || nmemb == 0)
+		return (malloc(0));
+	if (len / size != nmemb || len / nmemb != size)
+		return (NULL);
+	tab = malloc(len);
+	if (tab)
+		ft_bzero(tab, len);
+	return (tab);
 }

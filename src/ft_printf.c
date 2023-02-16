@@ -5,77 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 16:07:19 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/10 20:26:27 by jauffret         ###   ########.fr       */
+/*   Created: 2023/02/07 16:07:19 by  jauffret         #+#    #+#             */
+/*   Updated: 2023/02/16 16:50:53 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
-static int	arg_print3(va_list ptr, char c)
+static int	check_spaceplus(char c, int spacetype)
 {
-	long	tempi;
-
-	if (c == 'p')
-	{
-		tempi = va_arg(ptr, long);
-		if (!tempi)
-			return (ft_putstr_fd("(nil)", 1));
-		return (ft_putnbr_base(tempi, "0123456789abcdef", 2));
-	}
-	if (c == '%')
-	{
-		ft_putchar_fd('%', 1);
-		return (1);
-	}
-	return (0);
+	if (c == ' ')
+		return (ft_bitset(spacetype, 4));
+	if (c == '+')
+		return (ft_bitset(spacetype, 3));
+	if (c == '#')
+		return (ft_bitset(spacetype, 5));
+	if (c == '.')
+		return (ft_bitset(spacetype, 2));
+	if (c == '0')
+		return (ft_bitset(spacetype, 1));
+	if (c == '-')
+		return (ft_bitset(spacetype, 0));
+	return (spacetype);
 }
 
-static int	arg_print2(va_list ptr, char c)
+int	ft_putspace(int n)
 {
-	long	tempi;
+	int	i;
 
-	if (c == 'u')
+	i = 0;
+	while (i < n)
 	{
-		tempi = va_arg(ptr, long);
-		return (ft_putunbr_fd(tempi, 1));
+		ft_putchar_fd(' ', 1);
+		i++;
 	}
-	if (c == 'x')
-	{
-		tempi = va_arg(ptr, long);
-		return (ft_putnbr_base(tempi, "0123456789abcdef", 1));
-	}
-	if (c == 'X')
-	{
-		tempi = va_arg(ptr, long);
-		return (ft_putnbr_base(tempi, "0123456789ABCDEF", 1));
-	}
-	return (arg_print3(ptr, c));
+	return (n);
 }
 
-static int	arg_print(va_list ptr, char c)
+void	ft_printfbonus(const char *s, va_list ptr, int *i, int *n)
 {
-	char	*temps;
-	long	tempi;
-	char	tempc;
+	int	spacetype;
+	int	space;
 
-	if (c == 's')
+	if (s[*i] == '%')
 	{
-		temps = va_arg(ptr, char *);
-		return (ft_putstr_fd(temps, 1));
+		spacetype = 0;
+		space = 0;
+		while (s[*i] != 'd' && s[*i] != 's' && s[*i] != 'c' && s[*i] != 'i'
+			&& s[*i] != 'x' && s[*i] != 'X' && s[*i] != 'p' && s[*i] != '%'
+			&& s[*i] != 'u')
+		{
+			spacetype = check_spaceplus(s[*i], spacetype);
+			if (s[*i] > '0' && s[*i] <= '9' && !space)
+			{
+				space = ft_atoi(s + *i);
+				while (ft_isdigit(s[*i]))
+					i++;
+			}
+			*i += 1;
+		}
+		*n += arg_print(ptr, s[*i], spacetype, space);
+		*i += 1;
 	}
-	if (c == 'c')
-	{
-		tempc = va_arg(ptr, int);
-		ft_putchar_fd(tempc, 1);
-		return (1);
-	}
-	if (c == 'i' || c == 'd')
-	{
-		tempi = va_arg(ptr, int);
-		return (ft_putnnbr_fd(tempi, 1));
-	}
-	return (arg_print2(ptr, c));
 }
 
 int	ft_printf(const char *s, ...)
@@ -89,15 +81,10 @@ int	ft_printf(const char *s, ...)
 	n = 0;
 	while (s[i])
 	{
-		if (s[i] == '%')
-		{
-			n += arg_print(ptr, s[i + 1]) - 1;
-			i++;
-		}
-		else
-			write(1, s + i, 1);
-		i++;
-		n++;
+		ft_printfbonus(s, ptr, &i, &n);
+		write(1, s + i, 1);
+		i += 1;
+		n += 1;
 	}
 	return (n);
 }

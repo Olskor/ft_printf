@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 19:55:03 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 14:05:24 by jauffret         ###   ########.fr       */
+/*   Created: 2023/02/05 11:44:54 by jauffret          #+#    #+#             */
+/*   Updated: 2023/02/05 12:47:09 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_putunbr_fd(unsigned int n, int fd)
+int	ft_lstsize(t_list *lst)
 {
-	char	*str;
-	int		i;
+	int	i;
 
-	str = ft_uitoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
-}
-
-int	ft_putnnbr_fd(int n, int fd)
-{
-	char	*str;
-	int		i;
-
-	str = ft_itoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
 	return (i);
 }

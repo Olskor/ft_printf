@@ -1,5 +1,5 @@
 NAME		= libftprintf.a
-INCLUDE		= ./
+INCLUDE		= includes
 LIBFT		= libft
 SRC_DIR		= src/
 OBJ_DIR		= obj/
@@ -18,7 +18,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC_FILES	=	ft_printf ft_printnbr ft_putnbr_base ft_uitoa
+SRC_FILES	=	ft_printf ft_printnbr ft_putnbr_base ft_uitoa ft_argprint ft_bitmanipulation ft_print
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -26,7 +26,7 @@ OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 OBJF		=	.cache_exists
 
-all:		$(NAME)
+all:		whomadeit $(NAME)
 
 $(NAME):	$(OBJ)
 			@make -C $(LIBFT) --no-print-directory
@@ -58,5 +58,8 @@ re:			fclean all
 
 norm:
 			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+
+whomadeit:
+			@echo "$(RED)this programm was made by jauffret if the evaluated person is not jauffret, he's a cheater$(DEF_COLOR)"
 
 .PHONY:		all clean fclean re norm

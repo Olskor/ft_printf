@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printnbr.c                                      :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 19:55:03 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 14:05:24 by jauffret         ###   ########.fr       */
+/*   Created: 2023/02/04 16:36:26 by jauffret          #+#    #+#             */
+/*   Updated: 2023/02/06 15:00:15 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "libft.h"
 
-int	ft_putunbr_fd(unsigned int n, int fd)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*str;
+	char	*rst;
 	int		i;
 
-	str = ft_uitoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
-}
-
-int	ft_putnnbr_fd(int n, int fd)
-{
-	char	*str;
-	int		i;
-
-	str = ft_itoa(n);
-	ft_putstr_fd(str, fd);
-	i = ft_strlen(str);
-	free(str);
-	return (i);
+	if (!s || !f)
+		return (0);
+	rst = ft_strdup(s);
+	if (!rst)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		rst[i] = f(i, s[i]);
+		i++;
+	}
+	return (rst);
 }
