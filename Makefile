@@ -1,5 +1,5 @@
 NAME		= libftprintf.a
-INCLUDE		= includes
+INCLUDE		= include
 LIBFT		= libft
 SRC_DIR		= src/
 OBJ_DIR		= obj/
@@ -18,7 +18,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC_FILES	=	ft_printf ft_printnbr ft_putnbr_base ft_uitoa ft_argprint ft_bitmanipulation ft_print
+SRC_FILES	=	ft_printf ft_putnbr_base ft_uitoa ft_argprint ft_bitmanipulation ft_print ft_putcheck
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

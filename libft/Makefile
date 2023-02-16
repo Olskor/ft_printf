@@ -1,5 +1,5 @@
 NAME		= libft.a
-INCLUDE		= ../includes
+INCLUDE		= ../include
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 CC			= cc

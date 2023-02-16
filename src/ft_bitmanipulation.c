@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:17:56 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 15:46:24 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:21:38 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_iterative_power(int nb, int power)
 
 int	ft_bitisset(int n, int pos)
 {
-	if ((n) & (1<<(pos)))
+	if ((n) & (1 << (pos)))
 	{
 		return (1);
 	}
