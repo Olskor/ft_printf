@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:41:30 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 18:50:43 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:50:54 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		ft_print_nbr(int n, int spacetype, int space);
 int		ft_putstrcheck_fd(char *s, int fd);
 int		ft_checkstrlen(char *s);
 int		ft_print_unbr(unsigned int n, int spacetype, int space);
+int		ft_print_xnbr(unsigned long n, int spacetype, int space, char *base);
+int		ft_nbrlength(unsigned long i, int n);
 
 int		ft_printf(const char *s, ...);
 

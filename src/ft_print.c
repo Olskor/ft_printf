@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:57:09 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 19:11:26 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:08:40 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,33 @@ int	ft_print_unbr(unsigned int n, int spacetype, int space)
 		count += ft_putspace(space - ft_strlen(s));
 		count += ft_strlen(s);
 		free(s);
+		return (count);
+	}
+}
+
+int	ft_print_xnbr(unsigned long n, int spacetype, int space, char *base)
+{
+	int		count;
+
+	count = 0;
+	if (ft_bitisset(spacetype, 5))
+	{
+		if (base[15] == 'F')
+			ft_putstr_fd("0X", 1);
+		else
+			ft_putstr_fd("0x", 1);
+		count += 2;
+	}
+	if (!ft_bitisset(spacetype, 0))
+	{
+		count += ft_putspace(space - ft_nbrlength(n, 16));
+		count += ft_putnbr_base(n, base, 1);
+		return (count);
+	}
+	else
+	{
+		count += ft_putnbr_base(n, base, 1);
+		count += ft_putspace(space - ft_nbrlength(n, 16));
 		return (count);
 	}
 }

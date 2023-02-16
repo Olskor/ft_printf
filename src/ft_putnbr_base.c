@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 20:38:52 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 19:10:24 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:10:18 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	testbase(char *base)
 	return (1);
 }
 
-static int	nbrlength(unsigned long i, int n)
+int	ft_nbrlength(unsigned long i, int n)
 {
 	int	w;
 
@@ -70,14 +70,14 @@ int	ft_putnbr_base(unsigned long nbr, char *base, int size)
 		n++;
 	if (size == 1)
 	{
-		printnbrbase(i, nbrlength(i, n), base, n);
-		return (nbrlength(i, n));
+		printnbrbase(i, ft_nbrlength(i, n), base, n);
+		return (ft_nbrlength(i, n));
 	}
 	if (size == 2)
 	{
 		ft_putstr_fd("0x", 1);
-		printnbrbase(nbr, nbrlength(nbr, n), base, n);
-		return (nbrlength(nbr, n) + 2);
+		printnbrbase(nbr, ft_nbrlength(nbr, n), base, n);
+		return (ft_nbrlength(nbr, n) + 2);
 	}
 	return (0);
 }
