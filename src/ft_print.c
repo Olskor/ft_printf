@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:57:09 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 18:44:20 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:25:36 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,22 @@ int	ft_print_char(char s, int spacetype, int *space)
 int	ft_print_nbr(int n, int spacetype, int *space)
 {
 	int		count;
+	int		len;
 	char	*s;
 
 	s = ft_itoa(n);
 	count = 0;
+	len = ft_strlen(s);
 	if (n < 0)
-		s = s + 1;
+		len = ft_strlen(s) - 1;
 	if (!ft_bitisset(spacetype, 0))
 		count += ft_putspace(space[0] - ft_strlen(s), ' ');
 	if (n < 0)
 		count += write(1, "-", 1);
-	count += ft_putspace(space[1] - ft_strlen(s), '0');
-	count += ft_putnbrcheck_fd(s, 1, space, spacetype);
+	count += ft_putspace(space[1] - len, '0');
+	count += ft_putnbrcheck_fd(s, n, space, spacetype);
 	if (ft_bitisset(spacetype, 0))
-		count += ft_putspace(space[0] - ft_strlen(s), ' ');
+		count += ft_putspace(space[0] - count, ' ');
 	free (s);
 	return (count);
 }
@@ -71,26 +73,20 @@ int	ft_print_nbr(int n, int spacetype, int *space)
 int	ft_print_unbr(unsigned int n, int spacetype, int *space)
 {
 	int		count;
+	int		len;
 	char	*s;
 
 	s = ft_uitoa(n);
 	count = 0;
+	len = ft_strlen(s);
 	if (!ft_bitisset(spacetype, 0))
-	{
-		count += ft_putspace(space[0] - ft_strlen(s), ' ');
-		ft_putstr_fd(s, 1);
-		count += ft_strlen(s);
-		free(s);
-		return (count);
-	}
-	else
-	{
-		ft_putstr_fd(s, 1);
-		count += ft_putspace(space[0] - ft_strlen(s), ' ');
-		count += ft_strlen(s);
-		free(s);
-		return (count);
-	}
+		count += ft_putspace(space[0] - len, ' ');
+	count += ft_putspace(space[1] - len, '0');
+	count += ft_putnbrcheck_fd(s, n, space, spacetype);
+	if (ft_bitisset(spacetype, 0))
+		count += ft_putspace(space[0] - count, ' ');
+	free (s);
+	return (count);
 }
 
 int	ft_print_xnbr(unsigned long n, int spacetype, int *space, char *base)

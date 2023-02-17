@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:21:54 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 18:11:06 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:07:14 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ int	ft_checkstrlen(char *s, int *space, int spacetype)
 int	ft_putnbrcheck_fd(char *s, int fd, int *space, int spacetype)
 {
 	if (ft_bitisset(spacetype, 2))
+		if (space[1] == 0 && fd == 0)
+			return (0);
+	if (s[0] == '-')
 	{
-		ft_putstr_fd(s, fd);
-		space[0] = space[0];
-		return (ft_strlen(s));
+		ft_putstr_fd(s + 1, 1);
+		return (ft_strlen(s) - 1);
 	}
-	ft_putstr_fd(s, fd);
+	ft_putstr_fd(s, 1);
 	return (ft_strlen(s));
 }
