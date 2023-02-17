@@ -62,4 +62,6 @@ norm:
 whomadeit:
 			@echo "$(RED)this programm was made by jauffret if the evaluated person is not jauffret, he's a cheater$(DEF_COLOR)"
 
+bonus:		all
+
 .PHONY:		all clean fclean re norm

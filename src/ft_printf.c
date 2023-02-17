@@ -6,12 +6,22 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by  jauffret         #+#    #+#             */
-/*   Updated: 2023/02/16 18:19:14 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:26:21 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
+
+static int	check_idterm(char c)
+{
+	int	i;
+
+	i = (c != 'd' && c != 's' && c != 'c' && c != 'i'
+			&& c != 'x' && c != 'X' && c != 'p' && c != '%'
+			&& c != 'u');
+	return (i);
+}
 
 static int	check_spaceplus(char c, int spacetype)
 {
@@ -48,21 +58,20 @@ int	ft_putspace(int n)
 int	ft_printfbonus(const char *s, va_list ptr, int *i, int *n)
 {
 	int	spacetype;
-	int	space;
+	int	*space;
+	int	w;
 
-	if (s[*i] != '%')
-		return (0);
 	spacetype = 0;
-	space = 0;
+	space = ft_calloc(3, sizeof(int));
+	w = 0;
 	*i += 1;
-	while (s[*i] != 'd' && s[*i] != 's' && s[*i] != 'c' && s[*i] != 'i'
-		&& s[*i] != 'x' && s[*i] != 'X' && s[*i] != 'p' && s[*i] != '%'
-		&& s[*i] != 'u')
+	while (check_idterm(s[*i]))
 	{
 		spacetype = check_spaceplus(s[*i], spacetype);
-		if (s[*i] > '0' && s[*i] <= '9' && !space)
+		w = ft_check_spacetype(s[*i], w);
+		if (s[*i] > '0' && s[*i] <= '9' && !space[w])
 		{
-			space = ft_atoi(s + *i);
+			space[w] = ft_atoi(s + *i);
 			while (ft_isdigit(s[*i]))
 				*i += 1;
 		}
@@ -71,6 +80,7 @@ int	ft_printfbonus(const char *s, va_list ptr, int *i, int *n)
 	}
 	*n += arg_print(ptr, s[*i], spacetype, space);
 	*i += 1;
+	free(space);
 	return (1);
 }
 
@@ -85,12 +95,14 @@ int	ft_printf(const char *s, ...)
 	n = 0;
 	while (s[i])
 	{
-		if (!ft_printfbonus(s, ptr, &i, &n))
+		if (s[i] != '%')
 		{
 			write(1, s + i, 1);
 			i += 1;
 			n += 1;
 		}
+		else
+			ft_printfbonus(s, ptr, &i, &n);
 	}
 	return (n);
 }

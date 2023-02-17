@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:13:05 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/16 20:35:27 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:32:02 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int	main(void)
 	int	i;
 
 	i = 0;
-	ft_printf("%p\n", 0);
-	printf("%p\n", 0);
+	ft_printf(".%3.s.\n", "21-school.ru");
+	printf(".%3.s.\n", "21-school.ru");
 }
