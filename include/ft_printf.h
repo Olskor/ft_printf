@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:41:30 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 17:33:53 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:10:13 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 int		ft_putnbr_base(unsigned long nbr, char *base, int size);
 int		arg_print(va_list ptr, char c, int space, int *numberspace);
 char	*ft_uitoa(unsigned int nbr);
-int		ft_putspace(int n);
+int		ft_putspace(int n, char c);
 int		ft_bitisset(int n, int pos);
 int		ft_bitset(int n, int pos);
 int		ft_bitunset(int n, int pos);
@@ -38,6 +38,7 @@ int		ft_nbrlength(unsigned long i, int n);
 int		ft_print_pnbr(unsigned long n, int spacetype, int *space, char *base);
 int		ft_putox(int spacetype, char *base);
 int		ft_check_spacetype(char c, int w);
+int		ft_putnbrcheck_fd(char *s, int fd, int *space, int spacetype);
 
 int		ft_printf(const char *s, ...);
 

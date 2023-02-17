@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:07:19 by  jauffret         #+#    #+#             */
-/*   Updated: 2023/02/17 17:26:21 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:02:12 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	check_spaceplus(char c, int spacetype)
 	return (spacetype);
 }
 
-int	ft_putspace(int n)
+int	ft_putspace(int n, char c)
 {
 	int	i;
 
 	i = 0;
 	while (i < n)
 	{
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(c, 1);
 		i++;
 	}
 	if (n < 0)

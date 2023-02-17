@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:21:54 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 17:33:23 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:11:06 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,17 @@ int	ft_checkstrlen(char *s, int *space, int spacetype)
 	{
 		return (space[1]);
 	}
+	return (ft_strlen(s));
+}
+
+int	ft_putnbrcheck_fd(char *s, int fd, int *space, int spacetype)
+{
+	if (ft_bitisset(spacetype, 2))
+	{
+		ft_putstr_fd(s, fd);
+		space[0] = space[0];
+		return (ft_strlen(s));
+	}
+	ft_putstr_fd(s, fd);
 	return (ft_strlen(s));
 }
