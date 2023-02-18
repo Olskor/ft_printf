@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:41:30 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 18:10:13 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:55:22 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 # include <stdarg.h>
 
-int		ft_putnbr_base(unsigned long nbr, char *base, int size);
+int		ft_putnbr_base(unsigned long nbr, char *base, int spacetype,
+			int *space);
 int		arg_print(va_list ptr, char c, int space, int *numberspace);
 char	*ft_uitoa(unsigned int nbr);
 int		ft_putspace(int n, char c);

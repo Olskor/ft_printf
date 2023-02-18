@@ -6,7 +6,7 @@
 /*   By: jauffret <jauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:57:09 by jauffret          #+#    #+#             */
-/*   Updated: 2023/02/17 19:25:36 by jauffret         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:55:54 by jauffret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	ft_print_str(char *s, int spacetype, int *space)
 	count = 0;
 	if (!ft_bitisset(spacetype, 0))
 	{
-		count += ft_putspace(space[0] - ft_checkstrlen(s, space, spacetype), ' ');
+		count += ft_putspace(space[0] - ft_checkstrlen(s, space, spacetype),
+				' ');
 		count += ft_putstrcheck_fd(s, 1, space, spacetype);
 		return (count);
 	}
@@ -92,17 +93,18 @@ int	ft_print_unbr(unsigned int n, int spacetype, int *space)
 int	ft_print_xnbr(unsigned long n, int spacetype, int *space, char *base)
 {
 	int		count;
+	int		len;
 
 	count = 0;
+	len = ft_nbrlength(n, 16);
+	if (n == 0)
+		len = 0;
 	if (!ft_bitisset(spacetype, 0))
-	{
 		count += ft_putspace(space[0] - ft_nbrlength(n, 16), ' ');
-		count += ft_putox(spacetype, base);
-		count += ft_putnbr_base(n, base, 1 + ft_bitisset(spacetype, 5));
-		return (count);
-	}
+	count += ft_putspace(space[1] - len + 2 * ft_bitisset(spacetype, 5), '0');
 	count += ft_putox(spacetype, base);
-	count += ft_putnbr_base(n, base, 1 + ft_bitisset(spacetype, 5));
-	count += ft_putspace(space[0] - ft_nbrlength(n, 16), ' ');
+	count += ft_putnbr_base(n, base, spacetype, space);
+	if (ft_bitisset(spacetype, 0))
+		count += ft_putspace(space[0] - count, ' ');
 	return (count);
 }
